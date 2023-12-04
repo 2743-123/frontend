@@ -5,12 +5,12 @@ import Dashboard from './component/page/Dashboard';
 import Users from "./component/page/Users"
 import AdminUser from './component/page/AdminUser';
 import  Login  from "./component/login/Login"
-import { composeWithDevTools } from "redux-devtools-extension";
-import { applyMiddleware, createStore } from "redux";
-import logger from "redux-logger";
-import promise from "redux-promise";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
+// import { composeWithDevTools } from "redux-devtools-extension";
+// import { applyMiddleware, createStore } from "redux";
+// import logger from "redux-logger";
+// import promise from "redux-promise";
+// import { Provider } from "react-redux";
+// import thunk from "redux-thunk";
 // import { Dashboard } from '@mui/icons-material';
 
 
