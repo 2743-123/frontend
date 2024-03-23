@@ -1,4 +1,4 @@
-
+import React from "react";
 
 
 
@@ -9,3 +9,4 @@ const PageNotaSpotted=()=>{
         </div>
     )
 }
+export default PageNotaSpotted;

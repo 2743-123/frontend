@@ -1,3 +1,17 @@
+const ENV = "local";
+
+const ENVIRONMENT_LOCAL = {
+  Base_API_URL:"http://localhost:5000/api"
+};
+
+const ENVIRONMENT_DEVELOPMENT = {
+  Base_API_URL: "http://localhost:5000/api"
+};
+
+const ENVIRONMENT_PRODUCTION = {
+  Base_API_URL: "http://localhost:5000/api"
+};
+
 let ENVIRONMENT_VARIABLES;
 
 if (ENV === "local") {

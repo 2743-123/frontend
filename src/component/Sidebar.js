@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,20 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
-// import MailIcon from '@mui/icons-material/Mail';
-// import { ListSubheader } from '@mui/material';
-import Listbar from "./Listbar"
 import {Outlet, useLocation, useNavigate} from "react-router-dom"
-// import Admin from './page/Admin';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import Logout from "../common component/Logout"
+
+import React,{ useState } from 'react';
+
+
+
 import "./Side.scss"
 import Dropdown from './Dropdown admin list/Dropdown';
-import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
-
+import Listbar from "./Listbar"
 
 
 const drawerWidth = 240;
@@ -56,13 +52,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-// interface AppBarProps extends MuiAppBarProps {
-//   open?: boolean;
-// }
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -99,9 +90,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+ function MiniDrawer(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
+    const redirect = (url) => {
+        navigate(url);
+    };
+
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] =useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -111,20 +108,13 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  const location = useLocation();
-  console.log(location)
+ 
 
-  const navigate = useNavigate();
-    const redirect = (url) => {
-        navigate(url);
-    }
-  
-  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        
+      
         <Toolbar>
           <IconButton
             color="inherit"
@@ -144,6 +134,8 @@ export default function MiniDrawer() {
           </Typography>
          <div className='adminicon'><PersonOutlineRoundedIcon /></div> 
           <i className="drop_down"><  Dropdown  /></i>
+
+          <i className='logout' ><Logout/></i>
 
 
 
@@ -180,3 +172,4 @@ export default function MiniDrawer() {
     </Box>
   );
 }
+export default MiniDrawer;

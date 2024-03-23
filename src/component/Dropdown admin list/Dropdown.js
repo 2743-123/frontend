@@ -1,38 +1,60 @@
-import * as React from 'react';
-// import InputLabel from '@mui/material/InputLabel';
+import React, { useState,useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-// import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import { useSelector,connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import * as UserAction from "../action/index";
+import { Box } from '@mui/material';
 
 
 
 
-const Dropdown=()=>{
+const Dropdown=(props)=>{
+const [userDetail, setuserDetail] = useState('');
+const managementreducer = useSelector((state)=>({
+      token:state.managementreducer.token,
+      loading: state.managementreducer.loading,
+      userDetail: state.managementreducer.userDetail,
+    }))
+
+useEffect(() => {
+if(managementreducer.token) {
+props.actions.userAction.getUserDetails(); 
+ }
+}, [managementreducer.token]);
 
 
-    const [age, setAge] = React.useState('');
 
     const handleChange = (event) => {
-      setAge(event.target.value);
+      setuserDetail(event.userDetail);
     };
     return(
-        <div><FormControl sx={{ m: 0, minWidth: 120 }}>
+      <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        {/* <InputLabel ></InputLabel> */}
         <Select
-          value={age}
+          labelId="demo-simple-select-label"
+          value={userDetail}
           onChange={handleChange}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+        >{managementreducer.userDetail .map((user,id)=>{
+         return <MenuItem key={id}  >{user.name}</MenuItem>
+        
+
+        })
+          }
+          
         </Select>
-        {/* <FormHelperText>Without label</FormHelperText> */}
-      </FormControl></div>
+      </FormControl>
+      {managementreducer.isFetching}
+    </Box>
+    
     )
 }
-export default Dropdown
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    userAction: bindActionCreators(UserAction, dispatch),
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Dropdown);
